@@ -4,7 +4,7 @@ const connection = mysql.createConnection({
   host: process.env.MYSQLHOST || 'localhost',
   user: process.env.MYSQLUSER || 'root',
   password: process.env.MYSQLPASSWORD || '',
-  database: process.env.MYSQLDATABASE || 'inventory',
+  database: process.env.MYSQLDATABASE || 'inventory_db',
   port: process.env.MYSQLPORT || 3306
 });
 
