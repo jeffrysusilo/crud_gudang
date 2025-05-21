@@ -1,15 +1,16 @@
-const mysql = require('mysql2');
+const mysql = require('mysql');
 
-const conn = mysql.createConnection({
-  host: 'localhost',
-  user: 'root',
-  password: '', // sesuaikan kalau pakai password
-  database: 'inventory_db'
+const connection = mysql.createConnection({
+  host: process.env.MYSQLHOST || 'localhost',
+  user: process.env.MYSQLUSER || 'root',
+  password: process.env.MYSQLPASSWORD || '',
+  database: process.env.MYSQLDATABASE || 'inventory',
+  port: process.env.MYSQLPORT || 3306
 });
 
-conn.connect((err) => {
+connection.connect((err) => {
   if (err) throw err;
-  console.log('MySQL Connected!');
+  console.log("Database connected");
 });
 
-module.exports = conn;
+module.exports = connection;
