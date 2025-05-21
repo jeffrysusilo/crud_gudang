@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Edit Barang</title>
+</head>
+<body>
+  <h2>Edit Barang</h2>
+  <form id="editForm">
+    <input type="hidden" name="id">
+    <label>Nama Barang:</label><br>
+    <input type="text" name="nama_barang"><br><br>
+
+    <label>Jumlah:</label><br>
+    <input type="number" name="jumlah"><br><br>
+
+    <label>Lokasi:</label><br>
+    <input type="text" name="lokasi"><br><br>
+
+    <label>Tanggal Masuk:</label><br>
+    <input type="date" name="tanggal_masuk"><br><br>
+
+    <button type="submit">Simpan Perubahan</button>
+  </form>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('id');
+
+    fetch(`/api/barang/${id}`)
+      .then(res => res.json())
+      .then(data => {
+        document.querySelector('input[name="id"]').value = data.id;
+        document.querySelector('input[name="nama_barang"]').value = data.nama_barang;
+        document.querySelector('input[name="jumlah"]').value = data.jumlah;
+        document.querySelector('input[name="lokasi"]').value = data.lokasi;
+        document.querySelector('input[name="tanggal_masuk"]').value = data.tanggal_masuk;
+      });
+
+    document.getElementById('editForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData(this);
+      const data = Object.fromEntries(formData.entries());
+
+      const res = await fetch('/api/barang/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const result = await res.json();
+      if (res.ok) {
+        alert('✅ Berhasil diupdate');
+        location.href = '/barang.html';
+      } else {
+        alert('❌ Gagal: ' + result.error);
+      }
+    });
+  </script>
+</body>
+</html>

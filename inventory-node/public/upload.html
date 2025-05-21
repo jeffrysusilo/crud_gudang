@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload CSV - Barang</title>
+</head>
+<body>
+  <h2>Upload Data Barang (CSV)</h2>
+  <form id="csvForm">
+    <input type="file" name="file" accept=".csv" required />
+    <button type="submit">Upload</button>
+  </form>
+
+  <div id="result"></div>
+
+  <script>
+    document.getElementById('csvForm').addEventListener('submit', async function (e) {
+      e.preventDefault();
+      const formData = new FormData();
+      const fileInput = document.querySelector('input[type="file"]');
+      formData.append('file', fileInput.files[0]);
+
+      const res = await fetch('/api/barang/import/csv', {
+        method: 'POST',
+        body: formData
+      });
+
+      const data = await res.json();
+      document.getElementById('result').innerText = 
+        res.ok ? `✅ ${data.message} - ${data.data} data diimpor` : `❌ Gagal: ${data.error}`;
+    });
+  </script>
+  <p><a href="/barang.html">Lihat Daftar Barang</a></p>
+  <p><a href="/input.html">Input Manual</a></p>
+
+</body>
+</html>

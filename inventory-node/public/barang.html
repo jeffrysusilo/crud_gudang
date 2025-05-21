@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Daftar Barang</title>
+  <style>
+    table, th, td { border: 1px solid black; border-collapse: collapse; padding: 6px; }
+    th { background-color: #f0f0f0; }
+  </style>
+</head>
+<body>
+  <h2>Daftar Barang</h2>
+  <table id="tabelBarang">
+    <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nama Barang</th>
+          <th>Jumlah</th>
+          <th>Lokasi</th>
+          <th>Tanggal Masuk</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+    <tbody></tbody>
+  </table>
+
+  <!-- <script>
+    fetch('/api/barang')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector('#tabelBarang tbody');
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.nama_barang}</td>
+            <td>${item.jumlah}</td>
+            <td>${item.lokasi}</td>
+            <td>${item.tanggal_masuk}</td>
+          `;
+          tbody.appendChild(tr);
+        });
+      })
+      .catch(err => {
+        alert('Gagal mengambil data: ' + err.message);
+      });
+  </script> -->
+
+<script>
+    fetch('/api/barang')
+      .then(res => res.json())
+      .then(data => {
+        const tbody = document.querySelector('#tabelBarang tbody');
+        data.forEach(item => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td>${item.id}</td>
+            <td>${item.nama_barang}</td>
+            <td>${item.jumlah}</td>
+            <td>${item.lokasi}</td>
+            <td>${item.tanggal_masuk}</td>
+            <td>
+              <button onclick="editBarang(${item.id})">Edit</button>
+              <button onclick="hapusBarang(${item.id})">Hapus</button>
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      });
+    
+    function hapusBarang(id) {
+      if (confirm('Yakin ingin menghapus data ini?')) {
+        fetch('/api/barang/' + id, { method: 'DELETE' })
+          .then(res => res.json())
+          .then(result => {
+            alert('✅ ' + result.message);
+            location.reload();
+          }).catch(err => alert('❌ Gagal menghapus'));
+      }
+    }
+    
+    function editBarang(id) {
+      window.location.href = `/edit.html?id=${id}`;
+    }
+    </script>
+  <p><a href="/upload.html">Upload CSV</a></p>
+  <p><a href="/input.html">Input Manual\</a></p>
+  <a href="/api/barang/export/csv" download>
+    📥 Export Data CSV
+  </a>
+</body>
+</html>
