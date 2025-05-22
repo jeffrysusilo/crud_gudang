@@ -4,6 +4,7 @@ const express = require('express');
 const app = express();
 // const port = 3000;
 const PORT = process.env.PORT ;
+const path = require('path');
 
 
 // ✅ Ini membuat folder 'public' bisa diakses langsung
