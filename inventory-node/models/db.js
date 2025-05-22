@@ -30,11 +30,11 @@
 const mysql = require('mysql2');
 
 const connection = mysql.createConnection({
-  host: 'your-host.mysql.railway.app',
-  user: 'your_user',
-  password: 'your_password',
-  database: 'your_database',
-  port: 3306
+  host: MYSQLHOST,
+  user: MYSQLUSER,
+  password: MYSQLPASSWORD,
+  database: MYSQLDATABASE,
+  port: MYSQLPORT
 });
 
 connection.connect(err => {
