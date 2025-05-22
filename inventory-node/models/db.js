@@ -9,6 +9,14 @@ const connection = mysql.createConnection({
   port: process.env.MYSQLPORT || 3306
 });
 
+console.log("ENV TEST:", {
+  host: process.env.MYSQLHOST,
+  user: process.env.MYSQLUSER,
+  password: process.env.MYSQLPASSWORD,
+  database: process.env.MYSQLDATABASE,
+  port: process.env.MYSQLPORT,
+});
+
 connection.connect((err) => {
   if (err) {
     console.error('MySQL connection error:', err.message);
