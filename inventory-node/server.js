@@ -13,6 +13,10 @@ app.use(express.json());
 
 app.use(express.urlencoded({ extended: true })); // untuk form biasa
 
+app.get('/', (req, res) => {
+  res.send('API is running 🚀');
+});
+
 // Sisanya...
 app.use('/api/barang', require('./routes/barang'));
 
