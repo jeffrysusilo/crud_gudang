@@ -18,7 +18,8 @@ app.get('/', (req, res) => {
 });
 
 // Sisanya...
-app.use('/api/barang', require('./routes/barang'));
+const barangRoutes = require('./routes/barang');
+app.use('/api/barang', barangRoutes);
 
 // app.listen(port, () => console.log(`Server jalan di http://localhost:${port}`));
 app.listen(PORT, () => console.log(`Server jalan di port ${PORT}`));
